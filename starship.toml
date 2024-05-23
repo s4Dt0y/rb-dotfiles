@@ -1,0 +1,32 @@
+add_newline = true
+
+format = """
+$username\
+$directory\
+$rust\
+$lua\
+$java\
+$conda\
+$container\
+$c\
+$go\
+$nodejs\
+$python\
+$ruby\
+$shell\
+$swift\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status
+
+$character
+"""
+
+[character]
+success_symbol = '[ ](bold green)'
+error_symbol = "[ ](bold red)"
+
+[username]
+show_always = true

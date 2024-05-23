@@ -8,9 +8,6 @@ export PATH=$HOME/bin:/usr/local/opt/tcl-tk/bin:/Applications/Sublime\ Text.app/
 export ZSH="$HOME/.zdots"
 HELIX_RUNTIME="/usr/local/Cellar/helix/23.10/libexec/runtime"
 
-PROMPT='%{$fg_bold[blue]%}%c%{$reset_color%}%{$fg[red]%}'
-PROMPT+="%(?:%{$fg_bold[green]%}:%{$fg_bold[red]%}) | %{$reset_color%}"
-
 export FPATH="$HOME/.zellij:$FPATH"
 
 # Pyenv init
@@ -147,5 +144,6 @@ fi
 
 
 export PATH="/usr/local/opt/postgresql@15/bin:$PATH"
-
 export PATH="/usr/local/sbin:$PATH"
+
+eval "$(starship init zsh)"
