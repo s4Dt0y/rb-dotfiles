@@ -1,0 +1,35 @@
+yabai -m config layout bsp
+
+
+yabai -m config external_bar all:50:0
+
+# Set all padding and gaps to 20pt (default: 0)
+yabai -m config top_padding    10
+yabai -m config bottom_padding 10
+yabai -m config left_padding   10
+yabai -m config right_padding  10
+yabai -m config window_gap     9
+
+# Override gaps for space 2 only
+yabai -m config --space 2 window_gap 0
+
+# set mouse interaction modifier key (default: fn)
+yabai -m config mouse_modifier alt
+
+# set modifier + left-click drag to move window (default: move)
+yabai -m config mouse_action1 move
+
+# set modifier + right-click drag to resize window (default: resize)
+yabai -m config mouse_action2 resize
+
+# disable specific apps
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="^QuickTime Player$" manage=off
+yabai -m rule --add app="^Alfred Preferences$" manage=off
+yabai -m rule --add app="^Dictionary$" manage=off
+yabai -m rule --add app="^Finder$" manage=off
+yabai -m rule --add app="^Messages$" manage=off
+yabai -m rule --add app="^SF Symbols$" manage=off
+
+

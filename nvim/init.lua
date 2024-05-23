@@ -1,0 +1,2 @@
+require("sadtoy.core")
+
