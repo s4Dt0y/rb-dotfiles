@@ -1,7 +1,10 @@
 yabai -m config layout bsp
 
+# Sketchybar events
+yabai -m signal --add event=window_focused action="sketchybar -m --trigger window_focus &> /dev/null"
+yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger title_change &> /dev/null"
 
-yabai -m config external_bar all:50:0
+yabai -m config external_bar all:55:0
 
 # Set all padding and gaps to 20pt (default: 0)
 yabai -m config top_padding    10
