@@ -13,7 +13,7 @@ config.keys = {
 		action = wezterm.action.ToggleFullScreen,
 	},
 }
-config.color_scheme = "Mariana"
+config.color_scheme = "Qualia (base16)"
 
 config.font = wezterm.font("0xProto Nerd Font")
 config.font_size = 13

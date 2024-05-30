@@ -1,0 +1,12 @@
+theme = "cool_theme"
+show = [
+  "OperatingSystem",
+  "Distribution",
+  "Terminal",
+  "Shell",
+  "Packages",
+  "Uptime",
+  "Battery",
+  "ProcessorLoad",
+  "Memory",
+]
