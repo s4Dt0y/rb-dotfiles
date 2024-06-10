@@ -111,11 +111,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias bat="bat --theme=ansi --color=always"
 alias s="sudo"
-alias pydev="source ~/.virtualenvs/dev/bin/activate"
-# cargo aliases
-alias c_c="cargo check"
-alias c_r="cargo run"
-
 
 function zr () { zellij run --name "$*" -- zsh -ic "$*";}
 function zrf () { zellij run --name "$*" --floating -- zsh -ic "$*";}
@@ -142,8 +137,10 @@ if [[ -z "$ZELLIJ" ]]; then
     fi
 fi
 
-
 export PATH="/usr/local/opt/postgresql@15/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 
 eval "$(starship init zsh)"
+macchina
+
+export PATH="/usr/local/opt/llvm/bin:$PATH"
