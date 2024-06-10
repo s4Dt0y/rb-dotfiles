@@ -13,7 +13,7 @@ local messages_config = {
 		padding_right = 1,
 	},
 	label = {
-		string = "X",
+		string = "?",
 		font = { style = "Medium", size = 13.0 },
 		color = colors.white,
 		padding_left = 0,
@@ -75,7 +75,7 @@ local event_listener = sbar.add("item", "app.event_listener", { drawing = false,
 -- =============================================
 local function update_app_status(env)
 	local app_list = {
-		["messages"] = "com.app.messages",
+		["messages"] = "com.apple.MobileSMS",
 		["mail"] = "com.mailspring.mailspring",
 		["discord"] = "com.hnc.Discord",
 	}

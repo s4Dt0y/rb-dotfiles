@@ -13,7 +13,7 @@ config.keys = {
 		action = wezterm.action.ToggleFullScreen,
 	},
 }
-config.color_scheme = "Qualia (base16)"
+config.color_scheme = "tokyonight_moon"
 
 config.font = wezterm.font("0xProto Nerd Font")
 config.font_size = 13
@@ -22,7 +22,7 @@ config.enable_tab_bar = false
 
 config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.75
-config.macos_window_background_blur = 10
+config.macos_window_background_blur = 40
 
 -- and finally, return the configuration to wezterm
 return config

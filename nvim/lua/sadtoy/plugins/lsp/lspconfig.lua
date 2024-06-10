@@ -9,18 +9,6 @@ return {
 	config = function()
 		-- import lspconfig plugin
 		local lspconfig = require("lspconfig")
-
-		-- Change this to your actual download path.
-		local path_to_download = "$HOME/.config/nvim/omnisharp"
-		require("lspconfig").omnisharp.setup({
-			cmd = {
-				"mono",
-				"--assembly-loader=strict",
-				path_to_download .. "/omnisharp/OmniSharp.exe",
-			},
-			use_mono = true,
-		})
-
 		-- import mason_lspconfig plugin
 		local mason_lspconfig = require("mason-lspconfig")
 
@@ -43,8 +31,16 @@ return {
 				opts.desc = "Go to declaration"
 				keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
 
+				-- START LSP definitions
 				opts.desc = "Show LSP definitions"
-				keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+				keymap.set("n", "gdd", "<cmd>Telescope lsp_definitions<CR>", opts)
+
+				opts.desc = "Show LSP definitions in vsplit"
+				keymap.set("n", "gdv", ":vsplit | lua vim.lsp.buf.definition()<CR>")
+
+				opts.desc = "Show LSP definitions in hsplit"
+				keymap.set("n", "gdh", ":belowright split | lua vim.lsp.buf.definition()<CR>")
+				-- END LSP definitions
 
 				opts.desc = "Show LSP implementations"
 				keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
