@@ -103,6 +103,7 @@ return {
 					capabilities = capabilities,
 					filetypes = {
 						"html",
+						"htmldjango",
 						"typescriptreact",
 						"javascriptreact",
 						"css",
@@ -113,6 +114,13 @@ return {
 					},
 				})
 			end,
+			lspconfig["html"].setup({
+				capabilities = capabilities,
+				filetypes = {
+					"html",
+					"djangohtml",
+				},
+			}),
 			["lua_ls"] = function()
 				-- configure lua server (with special settings)
 				lspconfig["lua_ls"].setup({

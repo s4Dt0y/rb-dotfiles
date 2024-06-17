@@ -34,6 +34,7 @@ return {
 				"cssls",
 				"lua_ls",
 				"emmet_ls",
+				"pyright",
 			},
 		})
 
@@ -44,6 +45,7 @@ return {
 				"isort", -- python formatter
 				"eslint_d", -- js linter
 				"shfmt",
+				"black",
 			},
 		})
 	end,

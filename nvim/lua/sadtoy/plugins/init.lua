@@ -4,4 +4,5 @@ return {
 	"habamax/vim-godot",
 	"famiu/bufdelete.nvim",
 	"rafamadriz/friendly-snippets",
+	"christoomey/vim-tmux-navigator",
 }
