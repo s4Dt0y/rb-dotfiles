@@ -1,7 +1,6 @@
 add_newline = true
 
-format = """
-󱩡 \
+format = """󱩡 \
 $os\
 $directory\
 $rust\

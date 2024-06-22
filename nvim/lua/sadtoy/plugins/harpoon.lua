@@ -1,19 +1,29 @@
 return {
 	"ThePrimeagen/harpoon",
+	dependencies = { { "nvim-lua/plenary.nvim" } },
 	config = function()
-		require("harpoon").setup({
-			tabline = false,
-		})
+		local harpoon = require("harpoon")
+		local mark = require("harpoon.mark")
+		local ui = require("harpoon.ui")
+
+		harpoon.setup({})
 
 		local keymap = vim.keymap
-		keymap.set("n", "<leader>mm", '<cmd>lua require("harpoon.mark").add_file()<CR>', { desc = "Mark file" })
-		keymap.set(
-			"n",
-			"<leader>mt",
-			'<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>',
-			{ desc = "Toggle Mark Menu" }
-		)
-		keymap.set("n", "<leader>mn", '<cmd>lua require("harpoon.ui").nav_next()<CR>', { desc = "Next Mark" })
-		keymap.set("n", "<leader>mp", '<cmd>lua require("harpoon.ui").nav_prev()<CR>', { desc = "Previous Mark" })
+
+		keymap.set("n", "<leader>mm", function()
+			mark.add_file()
+		end, { desc = "Mark file" })
+
+		keymap.set("n", "<leader>mt", function()
+			ui.toggle_quick_menu()
+		end, { desc = "Toggle Mark Menu" })
+
+		keymap.set("n", "<leader>mn", function()
+			ui.nav_next()
+		end, { desc = "Next Mark" })
+
+		keymap.set("n", "<leader>mp", function()
+			ui.nav_prev()
+		end, { desc = "Previous Mark" })
 	end,
 }

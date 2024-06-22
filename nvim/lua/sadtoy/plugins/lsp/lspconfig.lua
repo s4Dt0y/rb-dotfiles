@@ -118,7 +118,6 @@ return {
 				capabilities = capabilities,
 				filetypes = {
 					"html",
-					"djangohtml",
 				},
 			}),
 			["lua_ls"] = function()
