@@ -37,5 +37,5 @@ yabai -m rule --add app="^SF Symbols$" manage=off
 yabai -m rule --add app="^Discord$" manage=off
 yabai -m rule --add app="^VMWare Fusion$" manage=off
 yabai -m rule --add app="^Archive Utility$" manage=off
+yabai -m rule --add app="^Mailspring$" manage=off
 
-borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0 &

@@ -23,7 +23,7 @@ local messages_config = {
 
 local mail_config = {
 	position = "right",
-	click_script = "open -a 'Mailspring'",
+	click_script = "open -a 'Thunderbird'",
 	padding_left = 2 * settings.group_padding,
 	padding_right = settings.item_padding,
 	icon = {
@@ -76,7 +76,7 @@ local event_listener = sbar.add("item", "app.event_listener", { drawing = false,
 local function update_app_status(env)
 	local app_list = {
 		["messages"] = "com.apple.MobileSMS",
-		["mail"] = "com.mailspring.mailspring",
+		["mail"] = "org.mozilla.thunderbird",
 		["discord"] = "com.hnc.Discord",
 	}
 	for app_name, app_bundle_id in pairs(app_list) do
