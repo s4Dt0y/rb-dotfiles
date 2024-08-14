@@ -1,28 +1,22 @@
 return {
-	-- -----------------------------------
-	-- -------- Padding
-	-- -----------------------------------
-	item_padding = 2,
-	group_padding = 4,
+  paddings = 3,
+  group_paddings = 5,
 
-	-- -----------------------------------
-	-- -------- Font
-	-- -----------------------------------
-	font = {
-		text = "SF Pro", -- Used for text
-		numbers = "SF Pro", -- Used for numbers
-		nerd_font = "0xProto Nerd Font",
-		nerd_font_alternative = "VictorMono Nerd Font Mono",
-		style_map = {
-			Ultralight = "Ultralight",
-			Thin = "Thin",
-			Light = "Light",
-			Regular = "Regular",
-			Medium = "Medium",
-			Semibold = "Semibold",
-			Bold = "Bold",
-			Heavy = "Heavy",
-			Black = "Black",
-		},
-	},
+  icons = "sf-symbols", -- alternatively available: NerdFont
+
+  -- This is a font configuration for SF Pro and SF Mono (installed manually)
+  font = require("helpers.default_font"),
+
+  -- Alternatively, this is a font config for JetBrainsMono Nerd Font
+  -- font = {
+  --   text = "JetBrainsMono Nerd Font", -- Used for text
+  --   numbers = "JetBrainsMono Nerd Font", -- Used for numbers
+  --   style_map = {
+  --     ["Regular"] = "Regular",
+  --     ["Semibold"] = "Medium",
+  --     ["Bold"] = "SemiBold",
+  --     ["Heavy"] = "Bold",
+  --     ["Black"] = "ExtraBold",
+  --   },
+  -- },
 }

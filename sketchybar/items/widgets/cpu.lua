@@ -1,14 +1,17 @@
--- NOTE: Not used
+local icons = require("icons")
+local colors = require("colors")
+local settings = require("settings")
+
 -- Execute the event provider binary which provides the event "cpu_update" for
 -- the cpu load data, which is fired every 2.0 seconds.
-sbar.exec("killall cpu_load &> /dev/null; $CONFIG_DIR/helpers/event_providers/cpu_load/bin/cpu_load cpu_update 2.0")
+sbar.exec("killall cpu_load >/dev/null; $CONFIG_DIR/helpers/event_providers/cpu_load/bin/cpu_load cpu_update 2.0")
 
-local cpu = sbar.add("graph", "widgets.cpu", 42, {
+local cpu = sbar.add("graph", "widgets.cpu" , 62, {
   position = "right",
-  graph = { color = colors.yellow },
+  graph = { color = colors.blue },
   background = {
-    height = 28,
-    color = colors.transparent,
+    height = 22,
+    color = { alpha = 0 },
     border_color = { alpha = 0 },
     drawing = true,
   },
@@ -23,9 +26,9 @@ local cpu = sbar.add("graph", "widgets.cpu", 42, {
     align = "right",
     padding_right = 0,
     width = 0,
-    y_offset = 4,
+    y_offset = 4
   },
-  padding_right = settings.item_padding + 6,
+  padding_right = settings.paddings + 6
 })
 
 cpu:subscribe("cpu_update", function(env)
@@ -33,7 +36,7 @@ cpu:subscribe("cpu_update", function(env)
   local load = tonumber(env.total_load)
   cpu:push({ load / 100. })
 
-  local color = colors.orange
+  local color = colors.blue
   if load > 30 then
     if load < 60 then
       color = colors.yellow
@@ -56,11 +59,11 @@ end)
 
 -- Background around the cpu item
 sbar.add("bracket", "widgets.cpu.bracket", { cpu.name }, {
-  background = { color = colors.transparent, border_width = 0 },
+  background = { color = colors.bg1 }
 })
 
 -- Background around the cpu item
 sbar.add("item", "widgets.cpu.padding", {
   position = "right",
-  width = settings.group_padding,
+  width = settings.group_paddings
 })

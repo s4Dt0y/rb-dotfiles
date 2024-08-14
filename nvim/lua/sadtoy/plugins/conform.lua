@@ -6,6 +6,7 @@ return {
 
 		conform.setup({
 			formatters_by_ft = {
+				["*"] = { "trim_whitespace", "trim_newlines" },
 				javascript = { "prettier" },
 				css = { "prettier" },
 				html = { "prettier" },
@@ -14,7 +15,9 @@ return {
 				markdown = { "prettier" },
 				liquid = { "prettier" },
 				lua = { "stylua" },
-				python = { "black" },
+				python = { "ruff_format" },
+				bash = { "shfmt" },
+				django = { "djlint" },
 			},
 			format_on_save = {
 				lsp_fallback = true,

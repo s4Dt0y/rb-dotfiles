@@ -1,57 +1,52 @@
 local settings = require("settings")
-local colors   = require("colors")
+local colors = require("colors")
 
-
+-- Equivalent to the --default domain
 sbar.default({
   updates = "when_shown",
-  update_freq = 0,
-
-  padding_left  = 0,
-  padding_right = 0,
-  scroll_texts = true,
-
   icon = {
     font = {
       family = settings.font.text,
-      style  = settings.font.style_map["Bold"],
-      size   = 14.0,
+      style = settings.font.style_map["Bold"],
+      size = 14.0
     },
-    color         = colors.white,
-    padding_left  = settings.item_padding,
-    padding_right = settings.item_padding,
-    -- background = { image = { corner_radius = 6 } },
+    color = colors.white,
+    padding_left = settings.paddings,
+    padding_right = settings.paddings,
+    background = { image = { corner_radius = 9 } },
   },
-
   label = {
     font = {
       family = settings.font.text,
-      style  = settings.font.style_map["Medium"],
-      size   = 12.0,
+      style = settings.font.style_map["Semibold"],
+      size = 13.0
     },
-    color         = colors.white,
-    padding_left  = settings.item_padding,
-    padding_right = settings.item_padding,
+    color = colors.white,
+    padding_left = settings.paddings,
+    padding_right = settings.paddings,
   },
-
   background = {
-    drawing       = false,
-    height        = 26,
-    border_color  = colors.border_color,
-    border_width  = 0,
-    corner_radius = 25,
-    padding_left  = 0,
-    padding_right = 0,
-    -- image = { corner_radius = 25, border_color = colors.black, border_width = 1, },
+    height = 34,
+    corner_radius = 12,
+    border_width = 0,
+    border_color = colors.bg2,
+    image = {
+      corner_radius = 9,
+      border_color = colors.grey,
+      border_width = 0
+    }
   },
-
   popup = {
     background = {
-      color         = colors.popup.bg,
-      border_color  = colors.popup.border,
-      border_width  = 2,
-      corner_radius = 10,
-      -- shadow = { drawing = true },
+      border_width = 0,
+      corner_radius = 9,
+      border_color = colors.popup.border,
+      color = colors.popup.bg,
+      shadow = { drawing = true },
     },
     blur_radius = 50,
   },
+  padding_left = 5,
+  padding_right = 5,
+  scroll_texts = true,
 })

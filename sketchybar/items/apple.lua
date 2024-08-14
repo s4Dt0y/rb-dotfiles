@@ -1,23 +1,26 @@
--- =============================================
--- ========== Config
--- =============================================
-local apple_config = {
-	position = "left",
+local colors = require("colors")
+local icons = require("icons")
+local settings = require("settings")
+
+-- padding item required because of bracket
+sbar.add("item", { width = 5 })
+
+local apple = sbar.add("item", {
 	icon = {
-		string = icons.aqi,
-		font = { style = "Black", size = 25.0 },
-		color = colors.stardust,
-		background = { color = colors.almost_transparent },
+		font = { size = 16.0 },
+		string = icons.apple,
+		padding_right = 12,
+		padding_left = 10,
 	},
 	label = { drawing = false },
-	padding_left = settings.item_padding,
-	padding_right = 5,
-	y_offset = 2,
+	background = {
+		color = colors.bg2,
+		border_color = colors.black,
+		border_width = 3,
+	},
+	padding_left = 1,
+	padding_right = 1,
+})
 
-	click_script = "$CONFIG_DIR/helpers/menus/bin/menus -s 0",
-}
-
--- =============================================
--- ========== Setup
--- =============================================
-local apple = sbar.add("item", "apple", apple_config)
+-- Padding item required because of bracket
+sbar.add("item", { width = 7 })

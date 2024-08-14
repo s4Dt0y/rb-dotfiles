@@ -1,67 +1,93 @@
-return {
-	aqi = "󰤇",
-	apple = "􀣺",
-	cpu = "􀫥",
-	clipboard = "􀉄",
+local settings = require("settings")
 
-	bluetooth = { -- Nerd Font
-		item = "",
-		on = "",
-		off = "",
+local icons = {
+	sf_symbols = {
+		plus = "􀅼",
+		loading = "􀖇",
+		apple = "􀓎",
+		gear = "􀍟",
+		cpu = "􀫥",
+		clipboard = "􀉄",
+
+		switch = {
+			on = "􁏮",
+			off = "􁏯",
+		},
+		volume = {
+			_100 = "􀊩",
+			_66 = "􀊧",
+			_33 = "􀊥",
+			_10 = "􀊡",
+			_0 = "􀊣",
+		},
+		battery = {
+			_100 = "■■■■■■",
+			_80 = "■■■■□",
+			_60 = "■■■□□",
+			_40 = "■■□□□",
+			_20 = "■□□□□",
+			_0 = "◧□□□□",
+			charging = "charging",
+		},
+		wifi = {
+			upload = "􀄨",
+			download = "􀄩",
+			connected = "􀙇",
+			disconnected = "􀙈",
+			router = "􁓤",
+		},
+		media = {
+			back = "􀊊",
+			forward = "􀊌",
+			play_pause = "􀊈",
+		},
 	},
 
-	calendar = "􀉉",
-	clock = "􀐫",
+	-- Alternative NerdFont icons
+	nerdfont = {
+		plus = "",
+		loading = "",
+		apple = "",
+		gear = "",
+		cpu = "",
+		clipboard = "Missing Icon",
 
-	switch = { on = "􀯻", off = "􀯶" },
-
-	volume = { _100 = "􀊩", _66 = "􀊧", _33 = "􀊥", _10 = "􀊡", _0 = "􀊣", error = "􀾐" },
-
-	battery = { _100 = "􀛨", _75 = "􀺸", _50 = "􀺶", _25 = "􀛩", _0 = "􀛪", charging = "􀢋" },
-
-	wifi = {
-		upload = "􀄨",
-		download = "􀄩",
-		router = "􁓤",
-		connected = "􀙇",
-		disconnected = "􀙈",
-		error = "􀙥",
+		switch = {
+			on = "󱨥",
+			off = "󱨦",
+		},
+		volume = {
+			_100 = "",
+			_66 = "",
+			_33 = "",
+			_10 = "",
+			_0 = "",
+		},
+		battery = {
+			_100 = "",
+			_75 = "",
+			_50 = "",
+			_25 = "",
+			_0 = "",
+			charging = "",
+		},
+		wifi = {
+			upload = "",
+			download = "",
+			connected = "󰖩",
+			disconnected = "󰖪",
+			router = "Missing Icon",
+		},
+		media = {
+			back = "",
+			forward = "",
+			play_pause = "",
+		},
 	},
-
-	media = { back = "􀊊", play_pause = "􀊈", forward = "􀊌" },
-
-	app = { -- Nerd Font
-		messages = "",
-		wechat = "󰘑",
-		mail = "󰇮",
-		discord = "",
-	},
-
-	yabai = {
-		bsp = "􀏜",
-		stack = "􀏭",
-		float = "􀢌",
-		error = "􀏎",
-	},
-
-	-- plus = "􀅼 ",
-	-- loading = "􀖇 ",
-	-- line = "􀝷 ",
-	-- gear = "􀍟 ",
-	-- bookmark = "􀉟 ",
-	-- Tornado = "􁛴 ",
-	-- arrow_circle_down = "􀁱 ",
-	-- pill = "􀝷 ",
-	-- pill_lines = "􀝶 ",
-	-- stack = "􀐋 ",
-	-- stack_right = "􀧏 ",
-	-- direct_current = "􀯝 ",
-	-- rotate_circle = "􁱀 ",
-	-- arrow_down = "􀆈 ",
-	-- menu_bar2 = "􀾚 ",
-	-- menu_bar = "􀾩 ",
-	-- active_space = "􀯺 ",
-	-- inactive_space = "􀯺 ",
-	-- spaces = "􁏮 ",
-	-- menu = "􁏯 ",
 }
+
+if not (settings.icons == "NerdFont") then
+	return icons.sf_symbols
+else
+	return icons.nerdfont
+end

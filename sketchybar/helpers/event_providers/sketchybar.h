@@ -31,7 +31,9 @@ static inline mach_port_t mach_get_bs_port() {
   mach_port_name_t task = mach_task_self();
 
   mach_port_t bs_port;
-  if (task_get_special_port(task, TASK_BOOTSTRAP_PORT, &bs_port) != KERN_SUCCESS) {
+  if (task_get_special_port(task,
+                            TASK_BOOTSTRAP_PORT,
+                            &bs_port            ) != KERN_SUCCESS) {
     return 0;
   }
 
@@ -56,7 +58,10 @@ static inline bool mach_send_message(mach_port_t port, char* message, uint32_t l
   msg.header.msgh_remote_port = port;
   msg.header.msgh_local_port = 0;
   msg.header.msgh_id = 0;
-  msg.header.msgh_bits = MACH_MSGH_BITS_SET(MACH_MSG_TYPE_COPY_SEND, MACH_MSG_TYPE_MAKE_SEND, 0, MACH_MSGH_BITS_COMPLEX);
+  msg.header.msgh_bits = MACH_MSGH_BITS_SET(MACH_MSG_TYPE_COPY_SEND,
+                                            MACH_MSG_TYPE_MAKE_SEND,
+                                            0,
+                                            MACH_MSGH_BITS_COMPLEX       );
 
   msg.header.msgh_size = sizeof(struct mach_message);
   msg.msgh_descriptor_count = 1;
@@ -66,7 +71,13 @@ static inline bool mach_send_message(mach_port_t port, char* message, uint32_t l
   msg.descriptor.deallocate = false;
   msg.descriptor.type = MACH_MSG_OOL_DESCRIPTOR;
 
-  kern_return_t err = mach_msg(&msg.header, MACH_SEND_MSG, sizeof(struct mach_message), 0, MACH_PORT_NULL, MACH_MSG_TIMEOUT_NONE, MACH_PORT_NULL);
+  kern_return_t err = mach_msg(&msg.header,
+                               MACH_SEND_MSG,
+                               sizeof(struct mach_message),
+                               0,
+                               MACH_PORT_NULL,
+                               MACH_MSG_TIMEOUT_NONE,
+                               MACH_PORT_NULL              );
 
   return err == KERN_SUCCESS;
 }
@@ -87,7 +98,8 @@ static inline uint32_t format_message(char* message, char* formatted_message) {
     caret++;
   }
 
-  if (caret > 0 && formatted_message[caret] == '\0' && formatted_message[caret - 1] == '\0') {
+  if (caret > 0 && formatted_message[caret] == '\0'
+      && formatted_message[caret - 1] == '\0') {
     caret--;
   }
   formatted_message[caret] = '\0';

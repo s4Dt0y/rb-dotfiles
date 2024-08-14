@@ -5,7 +5,6 @@ local function config(_, opts)
 	local feline = require("feline")
 	local vi_mode = require("feline.providers.vi_mode")
 	local file = require("feline.providers.file")
-	local separators = require("feline.defaults").statusline.separators.default_value
 	local lsp = require("feline.providers.lsp")
 
 	local theme = {
@@ -34,15 +33,10 @@ local function config(_, opts)
 				else
 					s = ""
 				end
-				s = string.format(" %s ", s)
+				s = string.format("%s", s)
 				return s
 			end,
-			hl = { fg = palette.bg0, bg = palette.blue.base },
-			right_sep = {
-				always_visible = true,
-				str = separators.slant_right,
-				hl = { fg = palette.blue.base, bg = palette.bg0 },
-			},
+			hl = { fg = palette.blue.base, bg = "none" },
 		},
 
 		file_name = {
@@ -50,11 +44,11 @@ local function config(_, opts)
 				name = "file_info",
 				opts = { colored_icon = false },
 			},
-			hl = { fg = palette.bg0, bg = palette.white.base },
+			hl = { fg = palette.yellow.base, bg = "none" },
 			left_sep = {
 				always_visible = true,
-				str = string.format("%s ", separators.slant_right),
-				hl = { fg = palette.bg0, bg = palette.white.base },
+				str = string.format("%s", "  "),
+				hl = { fg = "none", bg = "none" },
 			},
 		},
 
@@ -64,81 +58,52 @@ local function config(_, opts)
 				local branch, icon = git.git_branch()
 				local s
 				if #branch > 0 then
-					s = string.format(" %s%s ", icon, branch)
+					s = string.format("%s%s", icon, branch)
 				else
-					s = string.format(" %s ", "Untracked")
+					s = string.format("%s", "Untracked")
 				end
 				return s
 			end,
-			hl = { fg = palette.bg0, bg = palette.fg3 },
+			hl = { fg = palette.fg3, bg = "none" },
 			left_sep = {
 				always_visible = true,
-				str = string.format("%s%s", separators.block, separators.slant_right),
-				hl = { fg = palette.white.base, bg = palette.fg3 },
-			},
-			right_sep = {
-				always_visible = true,
-				str = separators.slant_right,
-				hl = { fg = palette.fg3, bg = palette.bg0 },
+				str = string.format("%s", "  "),
+				hl = { fg = "none", bg = "none" },
 			},
 		},
 
 		lsp = {
 			provider = function()
 				if not lsp.is_lsp_attached() then
-					return " 󱏎 LSP "
+					return "󱏎 LSP"
 				end
-				return string.format(" %s ", require("lsp-progress").progress())
+				return string.format("%s", require("lsp-progress").progress())
 			end,
 			hl = function()
 				if not lsp.is_lsp_attached() then
-					return { fg = palette.bg0, bg = palette.fg3 }
+					return { fg = palette.fg3, bg = "none" }
 				end
-				return { fg = palette.bg0, bg = palette.green.base }
+				return { fg = palette.green.base, bg = "none" }
 			end,
 			left_sep = {
 				always_visible = true,
-				str = separators.slant_right,
-				hl = function()
-					if not lsp.is_lsp_attached() then
-						return { fg = palette.bg0, bg = palette.fg3 }
-					end
-					return { fg = palette.bg0, bg = palette.green.base }
-				end,
-			},
-			right_sep = {
-				always_visible = true,
-				str = separators.slant_right,
-				hl = function()
-					if not lsp.is_lsp_attached() then
-						return { fg = palette.fg3, bg = "none" }
-					end
-					return { fg = palette.green.base, bg = "none" }
-				end,
+				str = string.format("%s", "  "),
+				hl = { fg = "none", bg = "none" },
 			},
 		},
 
 		-- right
 		vi_mode = {
 			provider = function()
-				return string.format(" %s ", vi_mode.get_vim_mode())
+				return string.format("%s", vi_mode.get_vim_mode())
 			end,
 			hl = function()
-				return { fg = palette.bg0, bg = vi_mode.get_mode_color() }
+				return { fg = vi_mode.get_mode_color(), bg = "none" }
 			end,
-			left_sep = {
-				always_visible = true,
-				str = separators.slant_left,
-				hl = function()
-					return { fg = vi_mode.get_mode_color(), bg = "none" }
-				end,
-			},
 			right_sep = {
 				always_visible = true,
-				str = separators.slant_left,
-				hl = function()
-					return { fg = palette.bg0, bg = vi_mode.get_mode_color() }
-				end,
+				str = string.format("%s", "  "),
+				hl = { fg = "none", bg = "none" },
 			},
 		},
 
@@ -149,49 +114,25 @@ local function config(_, opts)
 				if #recording_register == 0 then
 					s = ""
 				else
-					s = string.format(" Recording @%s ", recording_register)
+					s = string.format("Recording @%s", recording_register)
 				end
 				return s
 			end,
-			hl = { fg = palette.bg0, bg = palette.fg3 },
-			left_sep = {
+			hl = { fg = palette.fg3, bg = "none" },
+			right_sep = {
 				always_visible = true,
-				str = separators.slant_left,
-				hl = function()
-					return { fg = palette.fg3, bg = palette.bg0 }
-				end,
+				str = string.format("%s", "  "),
+				hl = { fg = "none", bg = "none" },
 			},
 		},
 
 		search_count = {
-			provider = function()
-				if vim.v.hlsearch == 0 then
-					return ""
-				end
-
-				local ok, result = pcall(vim.fn.searchcount, { maxcount = 999, timeout = 250 })
-				if not ok then
-					return ""
-				end
-				if next(result) == nil then
-					return ""
-				end
-
-				local denominator = math.min(result.total, result.maxcount)
-				return string.format(" [%d/%d] ", result.current, denominator)
-			end,
-			hl = { fg = palette.bg0, bg = palette.white.base },
-			left_sep = {
-				always_visible = true,
-				str = separators.slant_left,
-				hl = function()
-					return { fg = palette.white.base, bg = palette.fg3 }
-				end,
-			},
+			provider = "search_count",
+			hl = { fg = palette.yellow.base, bg = "none" },
 			right_sep = {
 				always_visible = true,
-				str = separators.slant_left,
-				hl = { fg = palette.bg0, bg = palette.white.base },
+				str = string.format("%s", "  "),
+				hl = { fg = "none", bg = "none" },
 			},
 		},
 
@@ -200,18 +141,11 @@ local function config(_, opts)
 				name = "position",
 				opts = { padding = true },
 			},
-			hl = { fg = palette.bg0, bg = palette.blue.base },
-			left_sep = {
-				always_visible = true,
-				str = string.format("%s%s", separators.slant_left, separators.block),
-				hl = function()
-					return { fg = palette.blue.base, bg = palette.bg0 }
-				end,
-			},
+			hl = { fg = palette.blue.base, bg = "none" },
 			right_sep = {
 				always_visible = true,
-				str = " ",
-				hl = { fg = palette.bg0, bg = palette.blue.base },
+				str = string.format("%s", " "),
+				hl = { fg = "none", bg = "none" },
 			},
 		},
 
@@ -220,7 +154,7 @@ local function config(_, opts)
 				name = "scroll_bar",
 				opts = { reverse = true },
 			},
-			hl = { fg = palette.blue.dim, bg = palette.blue.base },
+			hl = { fg = palette.blue.dim, bg = "none" },
 		},
 
 		-- inactive statusline
@@ -232,17 +166,7 @@ local function config(_, opts)
 					return file.file_type({}, { colored_icon = false, case = "lowercase" })
 				end
 			end,
-			hl = { fg = palette.bg0, bg = palette.blue.base },
-			left_sep = {
-				always_visible = true,
-				str = string.format("%s%s", separators.slant_left, separators.block),
-				hl = { fg = palette.blue.base, bg = "none" },
-			},
-			right_sep = {
-				always_visible = true,
-				str = " ",
-				hl = { fg = palette.bg0, bg = palette.blue.base },
-			},
+			hl = { fg = palette.blue.base, bg = "none" },
 		},
 	}
 
@@ -286,7 +210,16 @@ return {
 		{
 			"linrongbin16/lsp-progress.nvim",
 			opts = {
-				spinner = { "⠋", "⠙", "⠸", "⢰", "⣠", "⣄", "⡆", "⠇" },
+				spinner = {
+					"⠋",
+					"⠙",
+					"⠸",
+					"⢰",
+					"⣠",
+					"⣄",
+					"⡆",
+					"⠇",
+				},
 				client_format = function(_, spinner, series_messages)
 					return #series_messages > 0 and (spinner .. " LSP") or " LSP"
 				end,
@@ -329,7 +262,15 @@ return {
 		vim.opt.shortmess:append({ S = true })
 	end,
 	opts = {
-		force_inactive = { filetypes = { "^dapui_*", "^help$", "^neotest*", "^NvimTree$", "^qf$" } },
+		force_inactive = {
+			filetypes = {
+				"^dapui_*",
+				"^help$",
+				"^neotest*",
+				"^NvimTree$",
+				"^qf$",
+			},
+		},
 		disable = { filetypes = { "^alpha$" } },
 	},
 }

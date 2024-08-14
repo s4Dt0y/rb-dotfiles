@@ -4,7 +4,7 @@ yabai -m config layout bsp
 yabai -m signal --add event=window_focused action="sketchybar -m --trigger window_focus &> /dev/null"
 yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger title_change &> /dev/null"
 
-yabai -m config external_bar all:31:0
+yabai -m config external_bar all:40:0
 
 # Set all padding and gaps to 20pt (default: 0)
 yabai -m config top_padding    10
@@ -39,3 +39,4 @@ yabai -m rule --add app="^VMWare Fusion$" manage=off
 yabai -m rule --add app="^Archive Utility$" manage=off
 yabai -m rule --add app="^Mailspring$" manage=off
 
+borders active_color=0xffCAD3F5 inactive_color=0xbb282E44 hidpi=on width=5.0 2>/dev/null 1>&2 &

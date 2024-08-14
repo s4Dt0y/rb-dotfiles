@@ -35,6 +35,8 @@ return {
 				"lua_ls",
 				"emmet_ls",
 				"pyright",
+				"arduino_language_server",
+				"clangd",
 			},
 		})
 
@@ -46,6 +48,7 @@ return {
 				"eslint_d", -- js linter
 				"shfmt",
 				"black",
+				"ruff",
 			},
 		})
 	end,

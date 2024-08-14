@@ -1,64 +1,105 @@
--- =============================================
--- ========== Config
--- =============================================
-local battery_config = {
+local icons = require("icons")
+local colors = require("colors")
+local settings = require("settings")
+
+local battery = sbar.add("item", "widgets.battery", {
   position = "right",
-  update_freq = 60,
   icon = {
-    string = icons.battery._0,
-    font = { style = "Medium", size = 17.5 },
+    font = {
+      style = settings.font.style_map["Regular"],
+      size = 12.0,
+    }
+  },
+  label = { font = { family = settings.font.numbers } },
+  update_freq = 180,
+  popup = { align = "center" }
+})
+
+local remaining_time = sbar.add("item", {
+  position = "popup." .. battery.name,
+  icon = {
+    string = "Time remaining:",
+    width = 100,
+    align = "left"
   },
   label = {
-    string = "??%",
-    font = { family = settings.font.numbers, style = "Semibold", size = 12.0 },
+    string = "??:??h",
+    width = 100,
+    align = "right"
   },
-}
+})
 
 
-
--- =============================================
--- ========== Setup
--- =============================================
-local battery = sbar.add("item", "widgets.battery", battery_config)
--- Padding
-sbar.add("item", "widgets.battery.padding", { position = "right", width = settings.group_padding })
-
-
-
--- =============================================
--- ========== Functions
--- =============================================
-
----Update battery information
----@param env table Environment variables.
-local function update_battery_info(env)
-  ---@param batt_info string
+battery:subscribe({"routine", "power_source_change", "system_woke"}, function()
   sbar.exec("pmset -g batt", function(batt_info)
-    local icon, label, color = icons.battery._0, "??%", colors.battery.health
+    local icon = "!"
+    local label = "?"
 
-    local charging = batt_info:find("AC Power") ~= nil
-    local found, _, percent = batt_info:find("(%d+)%%")
-    if found then percent = tonumber(percent); label = ("%d%%"):format(percent) end
-
-    if charging then icon = icons.battery.charging
-    elseif found then
-      if percent >= 85 then icon = icons.battery._100
-      elseif percent > 60 then icon = icons.battery._75; color = colors.battery.normal
-      elseif percent > 35 then icon = icons.battery._50; color = colors.battery.normal
-      elseif percent > 15 then icon = icons.battery._25; color = colors.battery.death
-      else icon = icons.battery._0; color = colors.battery.death
-      end
-    else icon = icons.battery._0; color = colors.battery.death
+    local found, _, charge = batt_info:find("(%d+)%%")
+    if found then
+      charge = tonumber(charge)
+      label = charge .. "%"
     end
 
-    battery:set({ icon = { string = icon, color = color }, label = { string = label, color = color } })
+    local color = colors.green
+    local charging, _, _ = batt_info:find("AC Power")
+
+    if charging then
+      icon = icons.battery.charging
+    else
+    if found and charge == 0 then
+      icon = icons.battery._0
+      color = colors.red
+    elseif found and charge <= 20 then
+      icon = icons.battery._20
+      color = colors.orange
+    elseif found and charge <= 40 then
+      icon = icons.battery._40
+    elseif found and charge <= 60 then
+      icon = icons.battery._60
+    elseif found and charge <= 80 then
+      icon = icons.battery._80
+    elseif found and charge <= 100 then
+      icon = icons.battery._100
+    else
+      icon = icons.battery._0
+      color = colors.red
+    end
+    end
+
+    local lead = ""
+    if found and charge < 10 then
+      lead = "0"
+    end
+
+    battery:set({
+      icon = {
+        string = icon,
+        color = color
+      },
+      label = { string = lead .. label },
+    })
   end)
-end
+end)
 
+battery:subscribe("mouse.clicked", function(env)
+  local drawing = battery:query().popup.drawing
+  battery:set( { popup = { drawing = "toggle" } })
 
+  if drawing == "off" then
+    sbar.exec("pmset -g batt", function(batt_info)
+      local found, _, remaining = batt_info:find(" (%d+:%d+) remaining")
+      local label = found and remaining .. "h" or "No estimate"
+      remaining_time:set( { label = label })
+    end)
+  end
+end)
 
--- =============================================
--- ========== Listeners
--- =============================================
--- routine, system_woke, power_source_change: Update battery info.
-battery:subscribe({ "routine", "system_woke", "power_source_change" }, update_battery_info)
+sbar.add("bracket", "widgets.battery.bracket", { battery.name }, {
+  background = { color = colors.bg1 }
+})
+
+sbar.add("item", "widgets.battery.padding", {
+  position = "right",
+  width = settings.group_paddings
+})

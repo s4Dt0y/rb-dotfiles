@@ -1,4 +1,3 @@
----@diagnostic disable: lowercase-global
 -- Require the sketchybar module
 sbar = require("sketchybar")
 
@@ -9,9 +8,9 @@ sbar = require("sketchybar")
 sbar.begin_config()
 require("bar")
 require("default")
-require("events")
 require("items")
 sbar.end_config()
 
--- Run the event loop of the sketchybar module (without this there will be no callback functions executed in the lua module)
+-- Run the event loop of the sketchybar module (without this there will be no
+-- callback functions executed in the lua module)
 sbar.event_loop()

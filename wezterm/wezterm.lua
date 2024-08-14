@@ -21,8 +21,8 @@ config.font_size = 13
 config.enable_tab_bar = false
 
 config.window_decorations = "RESIZE"
-config.window_background_opacity = 0.75
-config.macos_window_background_blur = 40
+config.window_background_opacity = 0.50
+config.macos_window_background_blur = 20
 
 -- and finally, return the configuration to wezterm
 return config

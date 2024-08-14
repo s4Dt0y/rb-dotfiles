@@ -1,47 +1,47 @@
--- =============================================
--- ========== Helper
--- =============================================
--- Run the clock binary to update the clock.
-sbar.exec("killall clock &> /dev/null; $CONFIG_DIR/helpers/event_providers/clock/bin/clock clock_update 1.0")
+local settings = require("settings")
+local colors = require("colors")
 
+-- Padding item required because of bracket
+sbar.add("item", { position = "right", width = settings.group_paddings })
 
-
--- =============================================
--- ========== Config
--- =============================================
-local calendar_config = {
-  position = "right",
+local cal = sbar.add("item", {
   icon = {
-    font = { style = "Heavy", size = 13.0 },
-    color = colors.orange,
+    color = colors.white,
+    padding_left = 12,
+    font = {
+      style = settings.font.style_map["Bold"],
+      size = 14.0,
+    },
   },
   label = {
-    font = { family = settings.font.numbers, style = "Bold", size = 13.5 },
-    color = colors.cyan,
-    padding_left  = 6,
-    padding_right = 0,
-    width = 73,
-    align = "left",
+    color = colors.white,
+    padding_right = 16,
+    width = 70,
+    align = "right",
+    font = { family = settings.font.numbers },
   },
-}
+  position = "right",
+  update_freq = 30,
+  padding_left = 1,
+  padding_right = 1,
+  background = {
+    color = colors.bg2,
+    border_color = colors.black,
+    border_width = 3
+  },
+})
 
+-- Double border for calendar using a single item bracket
+sbar.add("bracket", { cal.name }, {
+  background = {
+    color = colors.transparent,
+    border_color = colors.grey,
+  }
+})
 
-
--- =============================================
--- ========== Setup
--- =============================================
-local calendar = sbar.add("item", "calendar", calendar_config)
 -- Padding item required because of bracket
-sbar.add("item", { position = "right", width = settings.group_padding })
+sbar.add("item", { position = "right", width = settings.group_paddings })
 
-
-
--- =============================================
--- ========== Listeners
--- =============================================
--- forced: Update the calender and clock.
-calendar:subscribe({ "forced" }, function(env) calendar:set({ icon = os.date(("%s %s %s"):format(icons.calendar, os.date("%a %b"), tonumber(os.date("%d")))), label = "Loading..." }) end)
--- system_woke: Update the calender.
-calendar:subscribe({ "system_woke" }, function(env) calendar:set({ icon = os.date(("%s %s %s"):format(icons.calendar, os.date("%a %b"), tonumber(os.date("%d")))) }) end)
--- clock_update: Update the clock.
-calendar:subscribe({ "clock_update" }, function(env) calendar:set({ label = env.time }) end)
+cal:subscribe({ "forced", "routine", "system_woke" }, function(env)
+  cal:set({ icon = os.date("􀉉 %A %d %B"), label = os.date(" 􀐫 %H:%M") })
+end)
