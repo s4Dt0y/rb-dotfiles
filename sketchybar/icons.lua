@@ -1,5 +1,4 @@
 local settings = require("settings")
-
 local icons = {
 	sf_symbols = {
 		plus = "􀅼",
@@ -8,7 +7,6 @@ local icons = {
 		gear = "􀍟",
 		cpu = "􀫥",
 		clipboard = "􀉄",
-
 		switch = {
 			on = "􁏮",
 			off = "􁏯",
@@ -21,13 +19,12 @@ local icons = {
 			_0 = "􀊣",
 		},
 		battery = {
-			_100 = "■■■■■■",
-			_80 = "■■■■□",
-			_60 = "■■■□□",
-			_40 = "■■□□□",
-			_20 = "■□□□□",
-			_0 = "◧□□□□",
-			charging = "charging",
+			_100 = "􀛨",
+			_75 = "􀺸",
+			_50 = "􀺶",
+			_25 = "􀛩",
+			_0 = "􀛪",
+			charging = "􀢋",
 		},
 		wifi = {
 			upload = "􀄨",

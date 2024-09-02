@@ -1,1 +1,2 @@
-require("sadtoy.core")
+require("notfound.core")
+require("notfound.lazy")
